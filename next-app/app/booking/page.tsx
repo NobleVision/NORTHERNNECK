@@ -30,14 +30,20 @@ interface Space {
   id: string
   name: string
   description?: string
-  pricePerHour?: string
+  price_per_hour?: string
   capacity?: number
   photos?: any
+  average_rating?: number
+  review_count?: number
 }
 
 interface BookingSuccess {
   id: string
   message: string
+  reservationId?: string
+  bookingData?: {
+    customerEmail?: string
+  }
 }
 
 export default function BookingPage() {
@@ -182,7 +188,7 @@ export default function BookingPage() {
                       </div>
                     </div>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="">
                     <p className="text-gray-600 text-sm mb-3 line-clamp-2">
                       {space.description}
                     </p>
@@ -212,7 +218,7 @@ export default function BookingPage() {
         {/* Selected Space Details */}
         {selectedSpace && (
           <Card className="border-purple-200">
-            <CardHeader>
+            <CardHeader className="">
               <div className="flex items-start justify-between">
                 <div>
                   <CardTitle className="text-2xl mb-2 text-purple-800">
@@ -236,11 +242,11 @@ export default function BookingPage() {
                 </div>
                 <Badge variant="secondary" className="flex items-center gap-1 bg-purple-100 text-purple-800">
                   <Star className="w-3 h-3 fill-current" />
-                  {selectedSpace.average_rating.toFixed(1)} Rating
+                  {(selectedSpace.average_rating || 0).toFixed(1)} Rating
                 </Badge>
               </div>
             </CardHeader>
-            <CardContent>
+            <CardContent className="">
               {/* Image Gallery */}
               <div className="mb-6">
                 <h3 className="text-lg font-semibold flex items-center gap-2 mb-4">
@@ -278,13 +284,13 @@ export default function BookingPage() {
 
         {/* Mock Completed Reservation for Review Demo */}
         <Card className="border-green-200 bg-green-50">
-          <CardHeader>
+          <CardHeader className="">
             <CardTitle className="flex items-center gap-2 text-green-800">
               <CheckCircle className="w-5 h-5" />
               Recent Reservation Completed
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="">
             <div className="grid md:grid-cols-2 gap-4 mb-4">
               <div>
                 <p className="text-sm text-green-700">
@@ -340,7 +346,7 @@ export default function BookingPage() {
                     Reservation ID: {bookingSuccess.reservationId}
                   </p>
                   <p className="text-sm text-green-600 mt-1">
-                    A confirmation email has been sent to {bookingSuccess.bookingData.customerEmail}
+                    A confirmation email has been sent to {bookingSuccess.bookingData?.customerEmail}
                   </p>
                 </div>
               </div>
