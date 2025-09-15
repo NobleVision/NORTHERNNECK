@@ -278,7 +278,7 @@ export default function AvailabilityPage() {
                     No availability information found for the selected date and filters.
                   </p>
                   <Link href="/booking">
-                    <Button className="bg-purple-600 hover:bg-purple-700">
+                    <Button variant="default" size="default" className="bg-purple-600 hover:bg-purple-700">
                       View All Spaces
                     </Button>
                   </Link>
