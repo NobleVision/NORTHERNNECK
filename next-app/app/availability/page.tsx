@@ -58,7 +58,8 @@ export default function AvailabilityPage() {
     }
   }
 
-  const getStatusColor = (status) => {
+  type SlotStatus = 'available' | 'booked' | 'maintenance'
+  const getStatusColor = (status: SlotStatus): string => {
     switch (status) {
       case 'available':
         return 'bg-green-100 text-green-800 border-green-200'
@@ -71,7 +72,7 @@ export default function AvailabilityPage() {
     }
   }
 
-  const getStatusIcon = (status) => {
+  const getStatusIcon = (status: SlotStatus): JSX.Element | null => {
     switch (status) {
       case 'available':
         return <CheckCircle className="w-4 h-4" />
@@ -247,7 +248,7 @@ export default function AvailabilityPage() {
                         
                         {slot.status === 'available' && (
                           <Link href="/booking">
-                            <Button size="sm" className="bg-purple-600 hover:bg-purple-700">
+                            <Button size="sm" variant="default" className="bg-purple-600 hover:bg-purple-700">
                               Book Now
                             </Button>
                           </Link>
@@ -320,7 +321,7 @@ export default function AvailabilityPage() {
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link href="/booking">
-              <Button size="lg" className="bg-purple-600 hover:bg-purple-700">
+              <Button size="lg" variant="default" className="bg-purple-600 hover:bg-purple-700">
                 <Calendar className="w-5 h-5 mr-2" />
                 Book Your Event
               </Button>
