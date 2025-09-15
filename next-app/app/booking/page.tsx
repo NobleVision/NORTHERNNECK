@@ -26,14 +26,28 @@ import {
   Mail
 } from 'lucide-react'
 
+interface Space {
+  id: string
+  name: string
+  description?: string
+  pricePerHour?: string
+  capacity?: number
+  photos?: any
+}
+
+interface BookingSuccess {
+  id: string
+  message: string
+}
+
 export default function BookingPage() {
   const [showReviewForm, setShowReviewForm] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [spaces, setSpaces] = useState([])
-  const [selectedSpace, setSelectedSpace] = useState(null)
+  const [spaces, setSpaces] = useState<Space[]>([])
+  const [selectedSpace, setSelectedSpace] = useState<Space | null>(null)
   const [loading, setLoading] = useState(true)
   const [showBookingForm, setShowBookingForm] = useState(false)
-  const [bookingSuccess, setBookingSuccess] = useState(null)
+  const [bookingSuccess, setBookingSuccess] = useState<BookingSuccess | null>(null)
   const [showAdminDashboard, setShowAdminDashboard] = useState(false)
 
   // Fetch spaces from API
@@ -66,7 +80,7 @@ export default function BookingPage() {
     status: 'completed'
   }
 
-  const handleReviewSubmit = async (reviewData) => {
+  const handleReviewSubmit = async (reviewData: any) => {
     setIsSubmitting(true)
     
     // Simulate API call
@@ -78,7 +92,7 @@ export default function BookingPage() {
     }, 2000)
   }
 
-  const handleBookingSuccess = (bookingResult) => {
+  const handleBookingSuccess = (bookingResult: BookingSuccess) => {
     setShowBookingForm(false)
     setBookingSuccess(bookingResult)
     // Auto-hide success message after 5 seconds
