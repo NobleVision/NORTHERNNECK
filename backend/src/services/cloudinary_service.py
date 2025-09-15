@@ -10,9 +10,9 @@ load_dotenv()
 
 # Configure Cloudinary
 cloudinary.config(
-    cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME', 'dod8ajzjd'),
-    api_key=os.getenv('CLOUDINARY_API_KEY', '841983555962286'),
-    api_secret=os.getenv('CLOUDINARY_API_SECRET', 'W1gSyjhw17u1vT5UQObDrDMmrl0'),
+    cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME', 'your-cloud-name'),
+    api_key=os.getenv('CLOUDINARY_API_KEY', 'your-api-key'),
+    api_secret=os.getenv('CLOUDINARY_API_SECRET', 'your-api-secret'),
     secure=True
 )
 

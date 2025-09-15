@@ -84,3 +84,12 @@ backend/.pytest_cache/
 backend/instance/
 backend/.coverage
 backend/htmlcov/
+
+# Additional security - ensure no .env files are committed
+*.env
+*.env.local
+*.env.development.local
+*.env.test.local
+*.env.production.local
+**/cloudinary_upload_results.json
+**/update_space_images.js
