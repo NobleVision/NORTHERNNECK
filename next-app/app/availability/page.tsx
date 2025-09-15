@@ -296,23 +296,23 @@ export default function AvailabilityPage() {
           <CardContent className="">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="flex items-center">
-                <Badge className="bg-green-100 text-green-800 border-green-200 mr-3">
+                <Badge variant="default" className="bg-green-100 text-green-800 border-green-200 mr-3">
                   <CheckCircle className="w-4 h-4 mr-1" />
                   Available
                 </Badge>
                 <span className="text-gray-600">Space is available for booking</span>
               </div>
-              
+
               <div className="flex items-center">
-                <Badge className="bg-red-100 text-red-800 border-red-200 mr-3">
+                <Badge variant="default" className="bg-red-100 text-red-800 border-red-200 mr-3">
                   <XCircle className="w-4 h-4 mr-1" />
                   Booked
                 </Badge>
                 <span className="text-gray-600">Space is already reserved</span>
               </div>
-              
+
               <div className="flex items-center">
-                <Badge className="bg-yellow-100 text-yellow-800 border-yellow-200 mr-3">
+                <Badge variant="default" className="bg-yellow-100 text-yellow-800 border-yellow-200 mr-3">
                   <AlertCircle className="w-4 h-4 mr-1" />
                   Maintenance
                 </Badge>
