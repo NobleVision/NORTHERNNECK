@@ -19,14 +19,27 @@ import {
   Search
 } from 'lucide-react'
 
+interface Space {
+  id: string
+  name: string
+}
+
+interface TimeSlot {
+  time: string
+  space: string
+  status: 'available' | 'booked' | 'maintenance'
+  capacity: number
+  event?: string
+}
+
 export default function AvailabilityPage() {
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0])
   const [selectedSpace, setSelectedSpace] = useState('all')
-  const [spaces, setSpaces] = useState([])
+  const [spaces, setSpaces] = useState<Space[]>([])
   const [loading, setLoading] = useState(true)
 
   // Mock availability data - in real app this would come from API
-  const mockAvailability = [
+  const mockAvailability: { date: string; timeSlots: TimeSlot[] }[] = [
     {
       date: '2024-09-15',
       timeSlots: [
