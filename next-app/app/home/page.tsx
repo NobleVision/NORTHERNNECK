@@ -42,8 +42,18 @@ export default function HomePage() {
   return (
     <JRGrahamLayout currentPage="home">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-purple-600 to-blue-600 text-white py-20">
-        <div className="absolute inset-0 bg-black/20"></div>
+      <div className="relative text-white py-20 overflow-hidden">
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src="/video/Image_Animated_for_Website_B_roll.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div className="absolute inset-0 bg-black/40"></div>
         <div className="relative max-w-7xl mx-auto px-4 text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
             Joseph R. Graham Center

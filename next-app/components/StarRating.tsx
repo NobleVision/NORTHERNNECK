@@ -2,15 +2,23 @@ import { useState } from 'react'
 import { Star } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-const StarRating = ({ 
-  rating = 0, 
-  onRatingChange, 
-  readonly = false, 
+interface StarRatingProps {
+  rating?: number
+  onRatingChange?: (rating: number) => void
+  readonly?: boolean
+  size?: 'sm' | 'md' | 'lg' | 'xl'
+  className?: string
+}
+
+const StarRating = ({
+  rating = 0,
+  onRatingChange,
+  readonly = false,
   size = 'md',
-  className 
-}) => {
+  className
+}: StarRatingProps) => {
   const [hoverRating, setHoverRating] = useState(0)
-  
+
   const sizeClasses = {
     sm: 'w-4 h-4',
     md: 'w-5 h-5',
@@ -18,13 +26,13 @@ const StarRating = ({
     xl: 'w-8 h-8'
   }
 
-  const handleClick = (value) => {
+  const handleClick = (value: number) => {
     if (!readonly && onRatingChange) {
       onRatingChange(value)
     }
   }
 
-  const handleMouseEnter = (value) => {
+  const handleMouseEnter = (value: number) => {
     if (!readonly) {
       setHoverRating(value)
     }
@@ -58,8 +66,8 @@ const StarRating = ({
               className={cn(
                 sizeClasses[size],
                 "transition-colors duration-150",
-                isFilled 
-                  ? "fill-yellow-400 text-yellow-400" 
+                isFilled
+                  ? "fill-yellow-400 text-yellow-400"
                   : "text-gray-300 hover:text-yellow-300"
               )}
             />

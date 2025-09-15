@@ -31,11 +31,12 @@ export default function JRGrahamLayout({ children, currentPage = 'booking' }: JR
             <div className="flex items-center justify-between">
               {/* Logo/Brand */}
               <div className="flex items-center">
-                <Link 
-                  href="https://jrgrahamcenter.org/" 
-                  className="bg-green-500 text-white px-4 py-2 rounded text-lg font-bold hover:bg-green-600 transition-colors"
-                >
-                  JRGraham Center
+                <Link href="https://jrgrahamcenter.org/">
+                  <img
+                    src="/logo/jrg-logo.png"
+                    alt="Joseph R. Graham Center"
+                    className="h-12 w-auto hover:opacity-80 transition-opacity"
+                  />
                 </Link>
               </div>
 
