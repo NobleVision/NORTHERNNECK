@@ -142,6 +142,7 @@ export default function BookingPage() {
           <Button
             onClick={() => setShowAdminDashboard(true)}
             variant="outline"
+            size="default"
             className="flex items-center gap-2"
           >
             <Settings className="w-4 h-4" />
