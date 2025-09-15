@@ -1,8 +1,15 @@
 # Dependencies
 node_modules/
+next-app/node_modules/
 backend/venv/
 *.pyc
 __pycache__/
+
+# Next.js build artifacts
+.next/
+out/
+next-app/.next/
+next-app/out/
 
 # Build outputs
 dist/
@@ -11,23 +18,40 @@ build/
 # Environment variables
 .env
 .env.local
+.env.development.local
+.env.test.local
 .env.production.local
+next-app/.env.local
+next-app/.env.development.local
+next-app/.env.test.local
+next-app/.env.production.local
+
+# Package manager lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+next-app/pnpm-lock.yaml
 
 # IDE files
 .vscode/
 .idea/
 *.swp
 *.swo
+*.sublime-project
+*.sublime-workspace
 
 # OS files
 .DS_Store
 Thumbs.db
+*.tmp
 
 # Logs
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
 # Runtime data
 pids
@@ -37,7 +61,26 @@ pids
 
 # Coverage directory used by tools like istanbul
 coverage/
+*.lcov
+
+# nyc test coverage
+.nyc_output
 
 # Temporary folders
 tmp/
 temp/
+
+# TypeScript cache
+*.tsbuildinfo
+next-env.d.ts
+
+# Vercel deployment artifacts
+.vercel
+
+# Python backend (legacy - kept for reference)
+backend/__pycache__/
+backend/*.pyc
+backend/.pytest_cache/
+backend/instance/
+backend/.coverage
+backend/htmlcov/
