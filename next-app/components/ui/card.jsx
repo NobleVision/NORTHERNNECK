@@ -2,6 +2,9 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * @param {{ className?: string } & import('react').HTMLAttributes<HTMLDivElement>} props
+ */
 function Card({
   className,
   ...props
@@ -17,6 +20,9 @@ function Card({
   );
 }
 
+/**
+ * @param {{ className?: string } & import('react').HTMLAttributes<HTMLDivElement>} props
+ */
 function CardHeader({
   className,
   ...props
@@ -32,6 +38,9 @@ function CardHeader({
   );
 }
 
+/**
+ * @param {{ className?: string } & import('react').HTMLAttributes<HTMLDivElement>} props
+ */
 function CardTitle({
   className,
   ...props
@@ -44,6 +53,9 @@ function CardTitle({
   );
 }
 
+/**
+ * @param {{ className?: string } & import('react').HTMLAttributes<HTMLDivElement>} props
+ */
 function CardDescription({
   className,
   ...props
@@ -56,6 +68,9 @@ function CardDescription({
   );
 }
 
+/**
+ * @param {{ className?: string } & import('react').HTMLAttributes<HTMLDivElement>} props
+ */
 function CardAction({
   className,
   ...props
@@ -71,6 +86,9 @@ function CardAction({
   );
 }
 
+/**
+ * @param {{ className?: string } & import('react').HTMLAttributes<HTMLDivElement>} props
+ */
 function CardContent({
   className,
   ...props
@@ -78,6 +96,9 @@ function CardContent({
   return (<div data-slot="card-content" className={cn("px-6", className)} {...props} />);
 }
 
+/**
+ * @param {{ className?: string } & import('react').HTMLAttributes<HTMLDivElement>} props
+ */
 function CardFooter({
   className,
   ...props
