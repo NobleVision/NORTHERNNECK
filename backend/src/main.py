@@ -1,0 +1,63 @@
+import os
+import sys
+# DON'T CHANGE THIS !!!
+sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+
+from flask import Flask, send_from_directory
+from flask_cors import CORS
+from dotenv import load_dotenv
+from src.models.rental_models import db
+from src.routes.user import user_bp
+from src.routes.spaces import spaces_bp
+from src.routes.reviews import reviews_bp
+from src.routes.reservations import reservations_bp
+from src.routes.images import images_bp
+from src.routes.payments import payments_bp
+from src.routes.admin import admin_bp
+
+# Load environment variables
+load_dotenv()
+
+app = Flask(__name__, static_folder=os.path.join(os.path.dirname(__file__), 'static'))
+
+# Enable CORS for frontend integration
+CORS(app)
+
+# Configuration
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'asdf#FGSgvasgf$5$WGT')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'postgresql://neondb_owner:npg_cVTkPKrCR65X@ep-little-bread-ad86daul-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Register blueprints
+app.register_blueprint(user_bp, url_prefix='/api')
+app.register_blueprint(spaces_bp, url_prefix='/api')
+app.register_blueprint(reviews_bp, url_prefix='/api')
+app.register_blueprint(reservations_bp, url_prefix='/api')
+app.register_blueprint(images_bp, url_prefix='/api/images')
+app.register_blueprint(payments_bp, url_prefix='/api/payments')
+app.register_blueprint(admin_bp, url_prefix='/api/admin')
+
+# Initialize database
+db.init_app(app)
+with app.app_context():
+    db.create_all()
+
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def serve(path):
+    static_folder_path = app.static_folder
+    if static_folder_path is None:
+            return "Static folder not configured", 404
+
+    if path != "" and os.path.exists(os.path.join(static_folder_path, path)):
+        return send_from_directory(static_folder_path, path)
+    else:
+        index_path = os.path.join(static_folder_path, 'index.html')
+        if os.path.exists(index_path):
+            return send_from_directory(static_folder_path, 'index.html')
+        else:
+            return "index.html not found", 404
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)
