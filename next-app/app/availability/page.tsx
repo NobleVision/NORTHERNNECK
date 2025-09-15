@@ -110,7 +110,7 @@ export default function AvailabilityPage() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Filters Section */}
         <Card className="mb-8">
-          <CardHeader>
+          <CardHeader className="">
             <CardTitle className="flex items-center gap-2">
               <Filter className="w-5 h-5" />
               Filter Availability
