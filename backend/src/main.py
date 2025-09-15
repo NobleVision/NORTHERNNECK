@@ -25,7 +25,7 @@ CORS(app)
 
 # Configuration
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'asdf#FGSgvasgf$5$WGT')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'postgresql://neondb_owner:npg_cVTkPKrCR65X@ep-little-bread-ad86daul-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'postgresql://username:password@localhost/database')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Register blueprints
