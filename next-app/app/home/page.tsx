@@ -42,7 +42,7 @@ export default function HomePage() {
   return (
     <JRGrahamLayout currentPage="home">
       {/* Hero Section */}
-      <div className="relative text-white py-20 overflow-hidden">
+      <div className="relative text-white min-h-screen flex items-center overflow-hidden">
         <video
           className="absolute inset-0 w-full h-full object-cover"
           autoPlay
