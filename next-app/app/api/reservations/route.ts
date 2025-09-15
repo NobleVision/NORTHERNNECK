@@ -3,6 +3,7 @@ import { db } from '@/lib/db'
 import { reservations, rentalSpaces, users } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 import { z } from 'zod'
+import { randomUUID } from 'crypto'
 
 const createReservationSchema = z.object({
   user_id: z.string().uuid(),
@@ -61,6 +62,7 @@ export async function POST(req: NextRequest) {
     const payload = parsed.data
 
     const inserted = await db.insert(reservations).values({
+      id: randomUUID(),
       userId: payload.user_id,
       spaceId: payload.space_id,
       startTime: new Date(payload.start_time),
