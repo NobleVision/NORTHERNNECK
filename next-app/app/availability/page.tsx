@@ -254,7 +254,7 @@ export default function AvailabilityPage() {
                           </span>
                         )}
                         
-                        <Badge className={`${getStatusColor(slot.status)} flex items-center gap-1`}>
+                        <Badge variant="default" className={`${getStatusColor(slot.status)} flex items-center gap-1`}>
                           {getStatusIcon(slot.status)}
                           {slot.status.charAt(0).toUpperCase() + slot.status.slice(1)}
                         </Badge>
