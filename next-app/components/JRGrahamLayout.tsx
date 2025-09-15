@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import type { Route } from 'next'
 import { Button } from '@/components/ui/button'
 
 interface JRGrahamLayoutProps {
@@ -12,12 +13,28 @@ interface JRGrahamLayoutProps {
 export default function JRGrahamLayout({ children, currentPage = 'booking' }: JRGrahamLayoutProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  const navigationItems = [
+  type InternalNavItem = {
+    name: string
+    href: Route
+    external: false
+    current: boolean
+  }
+
+  type ExternalNavItem = {
+    name: string
+    external: true
+    url: string
+    current?: boolean
+  }
+
+  type NavItem = InternalNavItem | ExternalNavItem
+
+  const navigationItems: NavItem[] = [
     { name: 'Home', href: '/home', external: false, current: currentPage === 'home' },
     { name: 'About', href: '/about', external: false, current: currentPage === 'about' },
     { name: 'Availability', href: '/availability', external: false, current: currentPage === 'availability' },
     { name: 'Space Rentals', href: '/booking', external: false, current: currentPage === 'booking' },
-    { name: 'Northern Neck Baptist Association', href: '/nnba', external: true, url: 'https://www.nnbaptist.org' },
+    { name: 'Northern Neck Baptist Association', external: true, url: 'https://www.nnbaptist.org' },
     { name: 'Contact', href: '/contact', external: false, current: currentPage === 'contact' }
   ]
 
@@ -31,13 +48,13 @@ export default function JRGrahamLayout({ children, currentPage = 'booking' }: JR
             <div className="flex items-center justify-between">
               {/* Logo/Brand */}
               <div className="flex items-center">
-                <Link href="https://jrgrahamcenter.org/">
+                <a href="https://jrgrahamcenter.org/" target="_blank" rel="noopener noreferrer">
                   <img
                     src="/logo/jrg-logo.png"
                     alt="Joseph R. Graham Center"
                     className="h-12 w-auto hover:opacity-80 transition-opacity"
                   />
-                </Link>
+                </a>
               </div>
 
               {/* Desktop Navigation */}
@@ -46,7 +63,7 @@ export default function JRGrahamLayout({ children, currentPage = 'booking' }: JR
                   <div key={item.name}>
                     {item.external ? (
                       <a
-                        href={item.url || item.href}
+                        href={item.url}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={`px-4 py-2 text-sm font-medium rounded transition-colors ${
@@ -92,7 +109,7 @@ export default function JRGrahamLayout({ children, currentPage = 'booking' }: JR
                     <div key={item.name}>
                       {item.external ? (
                         <a
-                          href={item.url || item.href}
+                          href={item.url}
                           target="_blank"
                           rel="noopener noreferrer"
                           className={`block px-4 py-2 text-sm font-medium rounded transition-colors ${

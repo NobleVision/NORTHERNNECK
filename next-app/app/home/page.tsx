@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import JRGrahamLayout from '@/components/JRGrahamLayout'
+import VideoRotator from '@/components/VideoRotator'
 import { 
   MapPin, 
   Phone, 
@@ -43,16 +44,7 @@ export default function HomePage() {
     <JRGrahamLayout currentPage="home">
       {/* Hero Section */}
       <div className="relative text-white min-h-screen flex items-center overflow-hidden">
-        <video
-          className="absolute inset-0 w-full h-full object-cover"
-          autoPlay
-          loop
-          muted
-          playsInline
-        >
-          <source src="/video/Image_Animated_for_Website_B_roll.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        <VideoRotator />
         <div className="absolute inset-0 bg-black/40"></div>
         <div className="relative max-w-7xl mx-auto px-4 text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
