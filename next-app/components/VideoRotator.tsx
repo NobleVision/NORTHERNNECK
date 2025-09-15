@@ -5,11 +5,9 @@ import { useState, useEffect, useRef } from 'react'
 export default function VideoRotator() {
   const [videos, setVideos] = useState<string[]>([])
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0)
-  const [nextVideoIndex, setNextVideoIndex] = useState(1)
-  const [isTransitioning, setIsTransitioning] = useState(false)
+  const [opacity, setOpacity] = useState(1)
   const [loading, setLoading] = useState(true)
-  const currentVideoRef = useRef<HTMLVideoElement>(null)
-  const nextVideoRef = useRef<HTMLVideoElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
     fetch('/api/videos')
@@ -22,32 +20,30 @@ export default function VideoRotator() {
   }, [])
 
   useEffect(() => {
-    const currentVideo = currentVideoRef.current
-    const nextVideo = nextVideoRef.current
-
-    if (currentVideo && nextVideo && videos.length > 1) {
+    const video = videoRef.current
+    if (video && videos.length > 0) {
       const handleEnded = () => {
-        setIsTransitioning(true)
-        nextVideo.play().catch(() => {})
-
+        // Fade out
+        setOpacity(0)
+        // After fade out, change video and fade in
         setTimeout(() => {
-          setCurrentVideoIndex(nextVideoIndex)
-          setNextVideoIndex((nextVideoIndex + 1) % videos.length)
-          setIsTransitioning(false)
-        }, 1000) // 1 second transition
+          setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % videos.length)
+          setOpacity(1)
+        }, 500) // Match the CSS transition duration
       }
 
-      currentVideo.addEventListener('ended', handleEnded)
-      return () => currentVideo.removeEventListener('ended', handleEnded)
+      video.addEventListener('ended', handleEnded)
+      return () => video.removeEventListener('ended', handleEnded)
     }
-  }, [videos, nextVideoIndex])
+  }, [videos])
 
   useEffect(() => {
-    const nextVideo = nextVideoRef.current
-    if (nextVideo && videos.length > 0) {
-      nextVideo.load()
+    const video = videoRef.current
+    if (video && videos.length > 0) {
+      video.load()
+      video.play().catch(() => {}) // Handle autoplay restrictions
     }
-  }, [nextVideoIndex, videos])
+  }, [currentVideoIndex, videos])
 
   if (loading || videos.length === 0) {
     return (
@@ -58,36 +54,17 @@ export default function VideoRotator() {
   }
 
   return (
-    <div className="absolute inset-0 w-full h-full">
-      <video
-        ref={currentVideoRef}
-        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-          isTransitioning ? 'opacity-0' : 'opacity-100'
-        }`}
-        autoPlay
-        muted
-        playsInline
-      >
-        <source src={videos[currentVideoIndex]} type="video/mp4" />
-        <source src={videos[currentVideoIndex].replace('.mp4', '.webm')} type="video/webm" />
-        Your browser does not support the video tag.
-      </video>
-
-      {videos.length > 1 && (
-        <video
-          ref={nextVideoRef}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-            isTransitioning ? 'opacity-100' : 'opacity-0'
-          }`}
-          muted
-          playsInline
-          preload="auto"
-        >
-          <source src={videos[nextVideoIndex]} type="video/mp4" />
-          <source src={videos[nextVideoIndex].replace('.mp4', '.webm')} type="video/webm" />
-          Your browser does not support the video tag.
-        </video>
-      )}
-    </div>
+    <video
+      ref={videoRef}
+      className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
+      style={{ opacity }}
+      autoPlay
+      muted
+      playsInline
+    >
+      <source src={videos[currentVideoIndex]} type="video/mp4" />
+      <source src={videos[currentVideoIndex].replace('.mp4', '.webm')} type="video/webm" />
+      Your browser does not support the video tag.
+    </video>
   )
 }
