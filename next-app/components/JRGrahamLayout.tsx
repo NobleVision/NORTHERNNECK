@@ -13,12 +13,12 @@ export default function JRGrahamLayout({ children, currentPage = 'booking' }: JR
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const navigationItems = [
-    { name: 'Home', href: '/', external: true, url: 'https://jrgrahamcenter.org/' },
-    { name: 'About', href: '/about', external: true, url: 'https://jrgrahamcenter.org/about' },
-    { name: 'Availability', href: '/availability', external: true, url: 'https://jrgrahamcenter.org/availability' },
+    { name: 'Home', href: '/home', external: false, current: currentPage === 'home' },
+    { name: 'About', href: '/about', external: false, current: currentPage === 'about' },
+    { name: 'Availability', href: '/availability', external: false, current: currentPage === 'availability' },
     { name: 'Space Rentals', href: '/booking', external: false, current: currentPage === 'booking' },
-    { name: 'Northern Neck Baptist Association', href: '/nnba', external: true, url: 'https://jrgrahamcenter.org/northern-neck-baptist-association' },
-    { name: 'Contact', href: '/contact', external: true, url: 'https://jrgrahamcenter.org/contact' }
+    { name: 'Northern Neck Baptist Association', href: '/nnba', external: true, url: 'https://www.nnbaptist.org' },
+    { name: 'Contact', href: '/contact', external: false, current: currentPage === 'contact' }
   ]
 
   return (

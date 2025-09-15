@@ -8,8 +8,8 @@ export default function Page() {
   const router = useRouter()
 
   useEffect(() => {
-    // Redirect to booking page
-    router.push('/booking')
+    // Redirect to home page
+    router.push('/home')
   }, [router])
 
   return (
@@ -17,7 +17,7 @@ export default function Page() {
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto"></div>
-          <p className="text-gray-600 mt-4">Redirecting to booking system...</p>
+          <p className="text-gray-600 mt-4">Redirecting to home page...</p>
         </div>
       </div>
     </JRGrahamLayout>
