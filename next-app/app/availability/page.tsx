@@ -208,8 +208,8 @@ export default function AvailabilityPage() {
 
         {/* Availability Grid */}
         <div className="grid gap-6">
-          <Card>
-            <CardHeader>
+          <Card className="">
+            <CardHeader className="">
               <CardTitle className="flex items-center justify-between">
                 <span>Availability for {new Date(selectedDate).toLocaleDateString('en-US', { 
                   weekday: 'long', 
@@ -222,7 +222,7 @@ export default function AvailabilityPage() {
                 </Badge>
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="">
               {filteredAvailability.length > 0 ? (
                 <div className="space-y-4">
                   {filteredAvailability.map((slot, index) => (
@@ -290,10 +290,10 @@ export default function AvailabilityPage() {
 
         {/* Legend */}
         <Card className="mt-8">
-          <CardHeader>
-            <CardTitle>Status Legend</CardTitle>
+          <CardHeader className="">
+            <CardTitle className="">Status Legend</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="flex items-center">
                 <Badge className="bg-green-100 text-green-800 border-green-200 mr-3">
