@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
   const spaceId = searchParams.get('space_id')
 
   try {
-    let query = db
+    const base = db
       .select({
         id: reservations.id,
         user_id: reservations.userId,
@@ -37,13 +37,14 @@ export async function GET(req: NextRequest) {
       .leftJoin(rentalSpaces, eq(rentalSpaces.id, reservations.spaceId))
       .leftJoin(users, eq(users.id, reservations.userId))
 
-    if (userId) {
-      query = query.where(eq(reservations.userId, userId))
-    } else if (spaceId) {
-      query = query.where(eq(reservations.spaceId, spaceId))
-    }
+    const rows = await (
+      userId
+        ? base.where(eq(reservations.userId, userId))
+        : spaceId
+          ? base.where(eq(reservations.spaceId, spaceId))
+          : base
+    )
 
-    const rows = await query
     return NextResponse.json({ success: true, data: rows })
   } catch (e: any) {
     return NextResponse.json({ success: false, error: e.message ?? 'Unknown error' }, { status: 500 })
