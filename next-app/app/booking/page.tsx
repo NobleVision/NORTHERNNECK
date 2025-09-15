@@ -181,9 +181,9 @@ export default function BookingPage() {
                         {space.capacity} people
                       </Badge>
                       <div className="flex items-center gap-1">
-                        <StarRating rating={space.average_rating} readonly size="sm" />
+                        <StarRating rating={space.average_rating || 0} readonly size="sm" />
                         <span className="text-sm text-gray-600">
-                          ({space.review_count})
+                          ({space.review_count || 0})
                         </span>
                       </div>
                     </div>
