@@ -5,28 +5,34 @@ import { eq, sql } from 'drizzle-orm'
 
 export async function GET() {
   try {
-    // Left join reviews to compute aggregates
-    const rows = await db
-      .select({
-        id: rentalSpaces.id,
-        name: rentalSpaces.name,
-        description: rentalSpaces.description,
-        price_per_hour: rentalSpaces.pricePerHour,
-        capacity: rentalSpaces.capacity,
-        photos: rentalSpaces.photos,
-        average_rating: sql<number>`COALESCE(AVG(${reviews.rating})::float, 0)` ,
-        review_count: sql<number>`COUNT(${reviews.id})`
+    // Get all spaces first
+    const spaces = await db.select().from(rentalSpaces)
+    
+    // Get review aggregates for each space
+    const spacesWithReviews = await Promise.all(
+      spaces.map(async (space) => {
+        const reviewStats = await db
+          .select({
+            average_rating: sql<number>`COALESCE(AVG(${reviews.rating})::float, 0)`,
+            review_count: sql<number>`COUNT(${reviews.id})`
+          })
+          .from(reviews)
+          .where(eq(reviews.spaceId, space.id))
+        
+        return {
+          id: space.id,
+          name: space.name,
+          description: space.description,
+          price_per_hour: space.pricePerHour,
+          capacity: space.capacity,
+          photos: space.photos,
+          average_rating: reviewStats[0]?.average_rating || 0,
+          review_count: reviewStats[0]?.review_count || 0
+        }
       })
-      .from(rentalSpaces)
-      .leftJoin(reviews, eq(reviews.spaceId, rentalSpaces.id))
-      .groupBy(
-        rentalSpaces.id,
-        rentalSpaces.name,
-        rentalSpaces.description,
-        rentalSpaces.pricePerHour,
-        rentalSpaces.capacity,
-        rentalSpaces.photos
-      )
+    )
+    
+    const rows = spacesWithReviews
 
     return NextResponse.json({ success: true, data: rows }, { status: 200 })
   } catch (e: any) {
